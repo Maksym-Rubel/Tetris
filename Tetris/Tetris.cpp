@@ -15,6 +15,7 @@ bool Tetris::checkboundx()
 
 bool Tetris::checkboundy()
 {
+	
 	for (int i = 0; i < 4; i++)
 	{
 		if (a[i].y >= M)
@@ -26,12 +27,15 @@ bool Tetris::checkboundy()
 	}
 	return 1;
 	
+	
 }
 
 void Tetris::draw()
 {
 	
+
 	window.clear(Color::Black);
+	
 	for (int k = 0; k < 4; k++)
 	{
 		sprite.setPosition(a[k].x * 36, a[k].y * 36);
@@ -104,6 +108,7 @@ void Tetris::fall()
 			a[i] = b[i];
 
 		}
+		
 		for (int i = 0; i < 4; i++) {
 			field[a[i].y][a[i].x] = 1;
 		}
@@ -148,8 +153,8 @@ void Tetris::fullline()
 void Tetris::Gameover()
 {
 	
-		writeToFileArray("Record.txt");
 		
+	bool isFin = false;
 		for (int j = 0; j < N; j++)
 		{
 			if (field[1][j])
@@ -158,18 +163,29 @@ void Tetris::Gameover()
 				cout << "Game over: You noob" << endl;
 				cout << "Your count --> " << counttetris << endl;
 				cout << "Your Record --> " << readFromFileArray("Record.txt") << endl;
-
-
+				return;
 			}
-
 		}
-		
+	
 }
+
+//int Tetris::color()
+//{
+//	int color1;
+//	if (!checkboundy())
+//	{
+//		color1 = rand() % 6;
+//		return color1 * 36;
+//		
+//	}
+//	return 1;
+//	
+//}
 
 void Tetris::writeToFileArray(const string& pathFile)
 {
 	ofstream file;
-	file.open(pathFile, ios_base::app);
+	file.open(pathFile);
 	if (!file.good())
 	{
 		cout << "Error. File not open" << endl;
@@ -185,7 +201,6 @@ int Tetris::readFromFileArray(const string& pathFile)
 	fstream file(pathFile, ios_base::in);
 	if (!file.is_open())
 	{
-		cout << "Error. File not open" << endl;
 		return 0;
 	}
 	int value;
@@ -210,7 +225,10 @@ void Tetris::game()
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
+			{
 				window.close();
+			}
+				
 			if (event.type == Event::KeyPressed)
 			{
 				
@@ -228,7 +246,7 @@ void Tetris::game()
 				}
 				else if (event.key.code == Keyboard::Down)
 				{
-					dy = 1.1;
+					dy = 1;
 
 
 				}
@@ -241,6 +259,11 @@ void Tetris::game()
 		fall();
 		draw();
 		fullline();
+		if (countrecord < counttetris)
+		{
+			writeToFileArray("Record.txt");
+		}
+		
 		
 	}
 }
@@ -253,6 +276,7 @@ Tetris::Tetris()
 		cout << "Error load texture" << endl;
 	}
 	sprite.setTexture(texture);
+	
 	sprite.setTextureRect(IntRect(0, 0, 36, 36));
 	
 	currentFigure = 0;  

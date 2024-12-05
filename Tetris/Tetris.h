@@ -5,7 +5,6 @@
 #include <fstream>
 #include <time.h>
 using namespace std;
-
 using namespace sf;
 class Tetris
 {
@@ -13,10 +12,11 @@ private:
 	RenderWindow window;
 	Texture texture;
 	Sprite sprite;
+	
+
 
 	const int M = 20;
 	const int N = 10; 
-	
 	int field[20][10] = { 0 };
 	int figures[7][4] =
 	{
@@ -33,14 +33,16 @@ private:
 		int x, y;
 	} a[4], b[4];
 	
+
+	
 	int dx = 0;
 	int dy = 0;
-
 	int counttetris = 0;
 	int countrecord = readFromFileArray("Record.txt");
-
 	int currentFigure = 3;
 	Clock clock;
+
+
 	bool checkboundx();
 	bool checkboundy();
 
@@ -51,6 +53,8 @@ private:
 	void fall();
 	void fullline();
 	void Gameover();
+	int color();
+
 	void writeToFileArray(const string& pathFile);
 	int readFromFileArray(const string& pathFile);
 
