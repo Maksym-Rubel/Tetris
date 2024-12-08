@@ -11,6 +11,7 @@ class Tetris
 private:
 	RenderWindow window;
 	Texture texture;
+
 	Sprite sprite;
 	
 
@@ -37,6 +38,8 @@ private:
 	
 	int dx = 0;
 	int dy = 0;
+	int colornum = 1;
+
 	int counttetris = 0;
 	int countrecord = readFromFileArray("Record.txt");
 	int currentFigure = 3;
@@ -53,7 +56,7 @@ private:
 	void fall();
 	void fullline();
 	void Gameover();
-	int color();
+
 
 	void writeToFileArray(const string& pathFile);
 	int readFromFileArray(const string& pathFile);

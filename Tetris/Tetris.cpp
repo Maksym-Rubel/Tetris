@@ -33,11 +33,12 @@ bool Tetris::checkboundy()
 void Tetris::draw()
 {
 	
-
 	window.clear(Color::Black);
+
 	
 	for (int k = 0; k < 4; k++)
 	{
+		
 		sprite.setPosition(a[k].x * 36, a[k].y * 36);
 		window.draw(sprite);
 		
@@ -63,6 +64,9 @@ void Tetris::generate()
 {
 	
 	srand(time(0));
+
+
+	
 	int n = rand() % 7;
 	for (int i = 0; i < 4; i++)
 	{
@@ -94,6 +98,7 @@ void Tetris::fall()
 	
 	if (time > 0.3)  
 	{
+	
 		clock.restart();
 		dy = 1;  
 	}
@@ -102,7 +107,9 @@ void Tetris::fall()
 		b[i] = a[i];
 		a[i].y += dy;
 	}
+
 	if (!this->checkboundy()) {
+
 		for (int i = 0; i < 4; i++)
 		{
 			a[i] = b[i];
@@ -112,13 +119,14 @@ void Tetris::fall()
 		for (int i = 0; i < 4; i++) {
 			field[a[i].y][a[i].x] = 1;
 		}
-
+	
 		int n = rand() % 7;
 		for (int i = 0; i < 4; i++)
 		{
 			a[i].x = figures[n][i] % 2;
 			a[i].y = figures[n][i] / 2;
 		}
+		generate();
 	}
 	dy = 0;
 }
@@ -169,18 +177,6 @@ void Tetris::Gameover()
 	
 }
 
-//int Tetris::color()
-//{
-//	int color1;
-//	if (!checkboundy())
-//	{
-//		color1 = rand() % 6;
-//		return color1 * 36;
-//		
-//	}
-//	return 1;
-//	
-//}
 
 void Tetris::writeToFileArray(const string& pathFile)
 {
@@ -263,6 +259,10 @@ void Tetris::game()
 		{
 			writeToFileArray("Record.txt");
 		}
+		srand(time(0));
+	
+
+
 		
 		
 	}
@@ -273,10 +273,13 @@ Tetris::Tetris()
 {
 	if (!texture.loadFromFile("C:\\Users\\Maksym\\source\\repos\\Tetris\\x64\\Debug\\TerrisTexture.png"))
 	{
-		cout << "Error load texture" << endl;
+		cout << "Pominyate shlah na sviy" << endl;
 	}
+
+
+
 	sprite.setTexture(texture);
-	
+
 	sprite.setTextureRect(IntRect(0, 0, 36, 36));
 	
 	currentFigure = 0;  
